@@ -1,0 +1,30 @@
+{
+  "name": "rss-notifier",
+  "version": "0.1.0",
+  "description": "💬 Send RSS update notifications to Slack",
+  "keywords": [
+    "rss",
+    "slack",
+    "notifier",
+    "notification",
+    "scheduled",
+    "💬"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": "bin.js",
+  "scripts": {
+    "start": "node bin",
+    "lint": "standard"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "levelheaded": "^1.2.0",
+    "rss-parser": "^3.10.0",
+    "yargs-parser": "^20.2.4"
+  },
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}
