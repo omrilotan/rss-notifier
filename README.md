@@ -4,12 +4,12 @@
 
 #### NPX
 ```bash
-npx rss-notifier --interval 600 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
+npx rss-notifier --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
 ```
 
 #### Docker
 ```bash
-docker run omrilotan/rss-notifier -- --interval 600 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
+docker run omrilotan/rss-notifier -- --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
 ```
 
 ![](https://user-images.githubusercontent.com/516342/103227871-1d176200-4938-11eb-9b10-788bd25f9c70.png)
@@ -20,7 +20,7 @@ docker run omrilotan/rss-notifier -- --interval 600 --webhook https://hooks.slac
 | - | - | -
 | `webhook` | Webhook address | ✘
 | `feeds` | Comma separated URLs | ✘
-| `interval` | Seconds | Fifteen minutes
+| `interval` | Minutes | Fifteen minutes
 | `channel` | Webhook channel | Default webhook channel
 | `log-level` | debug, verbose, info, warn, error, critical | warn
 
@@ -29,7 +29,7 @@ docker run omrilotan/rss-notifier -- --interval 600 --webhook https://hooks.slac
 #### Interval
 Run this as scheduled task, specify the interval in which you run it.
 
-For example, if you are running a cron as `*/15 * * * *` (each 15 minutes), set the interval argument to `900` (60 * 15).
+For example, if you are running a cron as `*/15 * * * *` (each 15 minutes), set the interval argument to `15`. If you are running a cron as `0 09 */1 * *` (every day at 09:00), set the interval argument to `1440` (60 * 24).
 
 #### Feed(s)
 The feed(s) is a list of one or more URLs.

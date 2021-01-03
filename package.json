@@ -1,6 +1,6 @@
 {
   "name": "rss-notifier",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "💬 Send RSS update notifications to Slack",
   "keywords": [
     "rss",
@@ -11,7 +11,12 @@
     "💬"
   ],
   "author": "omrilotan",
-  "license": "MIT",
+  "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/rss-notifier.git"
+  },
+  "homepage": "https://omrilotan.com/rss-notifier/",
   "main": "index.js",
   "bin": "bin.js",
   "scripts": {

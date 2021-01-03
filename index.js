@@ -1,19 +1,20 @@
 const getFeed = require('./lib/getFeed')
 const template = require('./lib/template')
 const send = require('./lib/send')
+const minutesToMs = require('./lib/minutesToMs')
 
 /**
  * @param {string} webhook
  * @param {string} channel
  * @param {string} feed
- * @param {number} [interval=54000] Default: Fifteen minutes
+ * @param {number} [interval=900] In minutes. Default: minutes
  * @param {object} [logger=console]
  */
 module.exports = async function check ({
   webhook,
   channel,
   feed,
-  interval = 60 * 60 * 15,
+  interval = 15,
   logger = console
 } = {}) {
   if (!webhook || !feed) {
@@ -21,7 +22,7 @@ module.exports = async function check ({
     return
   }
 
-  const lastCheck = new Date(Date.now() - (interval * 1000))
+  const lastCheck = new Date(Date.now() - minutesToMs(interval))
   const { feedUrl, title, lastBuildDate, items } = await getFeed(feed)
 
   if (new Date(lastBuildDate) < lastCheck) {
@@ -37,6 +38,8 @@ module.exports = async function check ({
     logger.debug(`There are no new entries since ${new Date(lastCheck)} in ${feed}`)
     return
   }
+
+  logger.debug(`Found an update in ${feed} on ${new Date(lastCheck)}`)
 
   const output = template({
     channel,
