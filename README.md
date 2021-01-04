@@ -1,4 +1,4 @@
-# rss-notifier [![](https://img.shields.io/github/workflow/status/omrilotan/rss-notifier/publish?style=flat-square)](https://github.com/omrilotan/rss-notifier/actions?query=workflow%3Apublish) [![](https://img.shields.io/docker/build/omrilotan/rss-notifier?style=flat-square)](https://hub.docker.com/repository/docker/omrilotan/rss-notifier) [![](https://img.shields.io/npm/v/rss-notifier?style=flat-square)](https://www.npmjs.com/package/rss-notifier)
+# rss-notifier [![](https://img.shields.io/github/workflow/status/omrilotan/rss-notifier/publish?style=flat-square)](https://github.com/omrilotan/rss-notifier/actions?query=workflow%3Apublish) [![](https://img.shields.io/docker/automated/omrilotan/rss-notifier?style=flat-square)](https://hub.docker.com/repository/docker/omrilotan/rss-notifier) [![](https://img.shields.io/npm/v/rss-notifier?style=flat-square)](https://www.npmjs.com/package/rss-notifier)
 
 ## 💬 Send RSS update notifications to Slack
 
@@ -30,9 +30,15 @@ docker run omrilotan/rss-notifier -- --interval 10 --webhook https://hooks.slack
 #### Interval
 Run this as scheduled task, specify the interval in which you run it.
 
-For example, if you are running a cron as `*/15 * * * *` (each 15 minutes), set the interval argument to `15`. If you are running a cron as `0 09 */1 * *` (every day at 09:00), set the interval argument to `1440` (60 * 24).
+_Examples:_
+
+If you are running a cron as `*/15 * * * *` (each 15 minutes), set the interval argument to `15`.
+
+If you are running a cron as `0 9 */1 * *` (every day at 09:00), set the interval argument to `1440` (60 * 24).
 
 #### Feed(s)
 The feed(s) is a list of one or more URLs.
 
-For example, if you want to "subscribe" to GitHub and Docker statuses set your feeds to both `--feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss`
+_Example:_
+
+If you want to "subscribe" to GitHub and Docker statuses set your feeds to both `--feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss`
