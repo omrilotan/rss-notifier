@@ -5,6 +5,7 @@ const notifier = require('.')
 const [, , ...argv] = process.argv
 const {
   logLevel = 'warn',
+  logFormat = 'plain',
   interval,
   webhook,
   channel,
@@ -23,6 +24,7 @@ list?.forEach(
     channel,
     feed,
     interval,
-    logger
+    logger,
+    logFormat
   })
 )

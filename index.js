@@ -1,7 +1,8 @@
 const getFeed = require('./lib/getFeed')
-const template = require('./lib/template')
-const send = require('./lib/send')
+const logFormat = require('./lib/logFormat')
 const minutesToMs = require('./lib/minutesToMs')
+const send = require('./lib/send')
+const template = require('./lib/template')
 
 /**
  * @param {string} webhook
@@ -15,8 +16,19 @@ module.exports = async function check ({
   channel,
   feed,
   interval = 15,
-  logger = console
+  logger = console,
+  format
 } = {}) {
+  if (/^json$/i.test(format)) {
+    const originalLogger = logger
+    logger = new Proxy(
+      {},
+      {
+        get: (logger, level) => message => originalLogger[level](logFormat(message))
+      }
+    )
+  }
+
   if (!webhook || !feed) {
     logger.error(`Missing webhook or feed ${{ webhook, feed }}`)
     return

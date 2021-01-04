@@ -23,6 +23,7 @@ docker run omrilotan/rss-notifier -- --interval 10 --webhook https://hooks.slack
 | `interval` | Minutes | Fifteen minutes
 | `channel` | Webhook channel | Default webhook channel
 | `log-level` | debug, verbose, info, warn, error, critical | warn
+| `log-format` | plain, json | plain
 
 ## How To Use
 

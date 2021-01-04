@@ -1,0 +1,20 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   '/Users/omri.lotan/.nvm/versions/node/v14.13.0/bin/node',
+1 verbose cli   '/Users/omri.lotan/.nvm/versions/node/v6.9.5/bin/npm',
+1 verbose cli   'ls'
+1 verbose cli ]
+2 info using npm@3.10.10
+3 info using node@v14.13.0
+4 verbose stack TypeError: cb.apply is not a function
+4 verbose stack     at /Users/omri.lotan/.nvm/versions/node/v6.9.5/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:267:18
+4 verbose stack     at FSReqCallback.oncomplete (fs.js:178:5)
+5 verbose cwd /spaceship/rss-notifier
+6 error Darwin 18.7.0
+7 error argv "/Users/omri.lotan/.nvm/versions/node/v14.13.0/bin/node" "/Users/omri.lotan/.nvm/versions/node/v6.9.5/bin/npm" "ls"
+8 error node v14.13.0
+9 error npm  v3.10.10
+10 error cb.apply is not a function
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]
