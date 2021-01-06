@@ -4,13 +4,22 @@ const notifier = require('.')
 
 const [, , ...argv] = process.argv
 const {
-  logLevel = 'warn',
-  logFormat = 'plain',
-  interval,
-  webhook,
-  channel,
-  feed,
-  feeds
+  CHANNEL,
+  FEEDS,
+  INTERVAL,
+  LOG_FROMAT = 'plain',
+  LOG_LEVEL = 'warn',
+  WEBHOOK
+} = process.env
+
+const {
+  channel = CHANNEL,
+  feed = FEEDS,
+  feeds = FEEDS,
+  interval = INTERVAL,
+  logFormat = LOG_FROMAT,
+  logLevel = LOG_LEVEL,
+  webhook = WEBHOOK
 } = parse(argv)
 
 const logger = levelheaded({ minimal: logLevel })

@@ -12,18 +12,36 @@ npx rss-notifier --interval 10 --webhook https://hooks.slack.com/services/XXXXXX
 docker run omrilotan/rss-notifier -- --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
 ```
 
+#### Docker with env vars
+```bash
+docker run -e INTERVAL=10 -e WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX -e CHANNEL="#notifications-channel" -e FEEDS=https://www.githubstatus.com/history.rss,https://status.docker.com/ ages/533c6539221ae15e3f000031/rss -e LOG-LEVEL=debug omrilotan/rss-notifier
+```
+or
+```bash
+export INTERVAL=10
+export WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+export CHANNEL="#notifications-channel"
+export FEEDS=https://www.githubstatus.com/history.rss,https://status.docker.com/ ages/533c6539221ae15e3f000031/rss
+export LOG-LEVEL=debug
+
+docker run -e INTERVAL -e WEBHOOK -e CHANNEL -e FEEDS -e LOG-LEVEL omrilotan/rss-notifier
+```
+and so on
+
 ![](https://user-images.githubusercontent.com/516342/103227871-1d176200-4938-11eb-9b10-788bd25f9c70.png)
 
-### options
+### CLI options
 
-| Name | Type | Default
-| - | - | -
-| `webhook` | Webhook address | ✘
-| `feeds` | Comma separated URLs | ✘
-| `interval` | Minutes | Fifteen minutes
-| `channel` | Webhook channel | Default webhook channel
-| `log-level` | debug, verbose, info, warn, error, critical | warn
-| `log-format` | plain, json | plain
+| Name | Env Var | Type | Default
+| - | - | - | -
+| `webhook` | `WEBHOOK` | Webhook address | ✘
+| `feeds` | `FEEDS` | Comma separated URLs | ✘
+| `interval` | `INTERVAL` | Minutes | Fifteen minutes
+| `channel` | `CHANNEL` | Webhook channel | Default webhook channel
+| `log-level` | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
+| `log-format` | `LOG_FROMAT` | plain, json | plain
+
+Options preference order is: CLI argument (1st), Environment variable (2nd), default (where applicable)
 
 ## How To Use
 
