@@ -35,6 +35,7 @@ module.exports = async function check ({
   }
 
   const lastCheck = new Date(Date.now() - minutesToMs(interval))
+  const now = new Date()
   const { feedUrl, title, lastBuildDate, items } = await getFeed(feed)
 
   if (new Date(lastBuildDate) < lastCheck) {
@@ -43,7 +44,17 @@ module.exports = async function check ({
   }
 
   const entries = items.filter(
-    ({ isoDate, pubDate }) => new Date(isoDate || pubDate) > lastCheck
+    ({ isoDate, pubDate }) => {
+      const date = new Date(isoDate || pubDate)
+      if (date < lastCheck) {
+        return false
+      }
+      if (date > now) {
+        // Future event
+        return false
+      }
+      return true
+    }
   )
 
   if (!entries.length) {
@@ -51,7 +62,7 @@ module.exports = async function check ({
     return
   }
 
-  logger.debug(`Found an update in ${feed} on ${new Date(lastCheck)}`)
+  logger.debug(`Found an update in ${feed} since ${new Date(lastCheck)}`)
 
   const output = template({
     channel,
