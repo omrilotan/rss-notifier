@@ -40,6 +40,7 @@ and so on
 | `channel` | `CHANNEL` | Webhook channel | Default webhook channel
 | `log-level` | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
 | `log-format` | `LOG_FROMAT` | plain, json | plain
+| `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
 
 Options preference order is: CLI argument (1st), Environment variable (2nd), default (where applicable)
 

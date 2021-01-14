@@ -17,7 +17,8 @@ module.exports = async function check ({
   feed,
   interval = 15,
   logger = console,
-  format
+  format,
+  emoji = ':rolled_up_newspaper:'
 } = {}) {
   if (/^json$/i.test(format)) {
     const originalLogger = logger
@@ -70,7 +71,8 @@ module.exports = async function check ({
       title,
       url: feedUrl
     },
-    entries
+    entries,
+    emoji
   })
 
   send(webhook, output).catch(logger.error)

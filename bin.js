@@ -9,7 +9,8 @@ const {
   INTERVAL,
   LOG_FROMAT = 'plain',
   LOG_LEVEL = 'warn',
-  WEBHOOK
+  WEBHOOK,
+  EMOJI
 } = process.env
 
 const {
@@ -19,7 +20,8 @@ const {
   interval = INTERVAL,
   logFormat = LOG_FROMAT,
   logLevel = LOG_LEVEL,
-  webhook = WEBHOOK
+  webhook = WEBHOOK,
+  emoji = EMOJI
 } = parse(argv)
 
 const logger = levelheaded({ minimal: logLevel })
@@ -34,6 +36,7 @@ list?.forEach(
     feed,
     interval,
     logger,
-    logFormat
+    logFormat,
+    emoji
   })
 )
