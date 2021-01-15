@@ -37,9 +37,10 @@ module.exports = async function check ({
 
   const lastCheck = new Date(Date.now() - minutesToMs(interval))
   const now = new Date()
-  const { feedUrl, title, lastBuildDate, items } = await getFeed(feed)
+  const { feedUrl, title, lastBuildDate, pubDate, items } = await getFeed(feed)
+  const lastUpdate = new Date(lastBuildDate || pubDate)
 
-  if (new Date(lastBuildDate) < lastCheck) {
+  if (lastUpdate < lastCheck) {
     logger.debug(`Nothing changed since ${new Date(lastCheck)} in ${feed}`)
     return
   }
