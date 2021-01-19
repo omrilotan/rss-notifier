@@ -1,15 +1,15 @@
-# rss-notifier [![](https://img.shields.io/github/workflow/status/omrilotan/rss-notifier/publish?style=flat-square)](https://github.com/omrilotan/rss-notifier/actions?query=workflow%3Apublish) [![](https://img.shields.io/docker/v/omrilotan/rss-notifier?label=docker&logo=docker&logoColor=white&style=flat-square)](https://hub.docker.com/repository/docker/omrilotan/rss-notifier) [![](https://img.shields.io/npm/v/rss-notifier?style=flat-square)](https://www.npmjs.com/package/rss-notifier)
+# rss-notifier [![](https://img.shields.io/github/workflow/status/omrilotan/rss-notifier/publish?style=flat-square)](https://github.com/omrilotan/rss-notifier/actions?query=workflow%3Apublish)  [![](https://img.shields.io/docker/v/omrilotan/rss-notifier?label=&logo=docker&logoColor=fff&style=flat-square) ![](https://img.shields.io/docker/pulls/omrilotan/rss-notifier?label=pulls&logo=docker&logoColor=fff&style=flat-square)](https://hub.docker.com/repository/docker/omrilotan/rss-notifier) [![](https://img.shields.io/npm/v/rss-notifier?label=&logo=npm&logoColor=fff&style=flat-square) ![](https://img.shields.io/npm/dt/rss-notifier?label=downloads&logo=npm&logoColor=fff&style=flat-square)](https://www.npmjs.com/package/rss-notifier)
 
 ## 💬 Send RSS update notifications to Slack
-
-#### NPX
-```bash
-npx rss-notifier --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
-```
 
 #### Docker
 ```bash
 docker run omrilotan/rss-notifier -- --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
+```
+
+#### NPX
+```bash
+npx rss-notifier --interval 10 --webhook https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX --channel "#notifications-channel" --feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss --log-level debug
 ```
 
 #### Docker with env vars
@@ -21,14 +21,14 @@ or
 export INTERVAL=10
 export WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
 export CHANNEL="#notifications-channel"
-export FEEDS=https://www.githubstatus.com/history.rss,https://status.docker.com/ ages/533c6539221ae15e3f000031/rss
+export FEEDS=https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss
 export LOG-LEVEL=debug
 
 docker run -e INTERVAL -e WEBHOOK -e CHANNEL -e FEEDS -e LOG-LEVEL omrilotan/rss-notifier
 ```
 and so on
 
-![](https://user-images.githubusercontent.com/516342/103227871-1d176200-4938-11eb-9b10-788bd25f9c70.png)
+<img width="600" src="https://user-images.githubusercontent.com/516342/105033778-3dcb6700-5a61-11eb-90ec-783d29481c80.png">
 
 ### CLI options
 
@@ -41,6 +41,7 @@ and so on
 | `log-level` | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
 | `log-format` | `LOG_FROMAT` | plain, json | plain
 | `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
+| `dry-run` | N/A | Boolean | no
 
 Options preference order is: CLI argument (1st), Environment variable (2nd), default (where applicable)
 

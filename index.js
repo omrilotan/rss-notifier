@@ -4,12 +4,15 @@ const minutesToMs = require('./lib/minutesToMs')
 const send = require('./lib/send')
 const template = require('./lib/template')
 
+const [ABORT, SUCCESS] = ['abort', 'success']
+
 /**
  * @param {string} webhook
  * @param {string} channel
  * @param {string} feed
  * @param {number} [interval=900] In minutes. Default: minutes
  * @param {object} [logger=console]
+ * @returns {Promise<string>}
  */
 module.exports = async function check ({
   webhook,
@@ -18,7 +21,8 @@ module.exports = async function check ({
   interval = 15,
   logger = console,
   format,
-  emoji = ':rolled_up_newspaper:'
+  emoji = ':rolled_up_newspaper:',
+  dryRun
 } = {}) {
   if (/^json$/i.test(format)) {
     const originalLogger = logger
@@ -32,7 +36,7 @@ module.exports = async function check ({
 
   if (!webhook || !feed) {
     logger.error(`Missing webhook or feed ${{ webhook, feed }}`)
-    return
+    return ABORT
   }
 
   const lastCheck = new Date(Date.now() - minutesToMs(interval))
@@ -41,8 +45,8 @@ module.exports = async function check ({
   const lastUpdate = new Date(lastBuildDate || pubDate)
 
   if (lastUpdate < lastCheck) {
-    logger.debug(`Nothing changed since ${new Date(lastCheck)} in ${feed}`)
-    return
+    logger.verbose(`Nothing changed since ${new Date(lastCheck)} in ${feed}`)
+    return ABORT
   }
 
   const entries = items.filter(
@@ -60,11 +64,11 @@ module.exports = async function check ({
   )
 
   if (!entries.length) {
-    logger.debug(`There are no new entries since ${new Date(lastCheck)} in ${feed}`)
-    return
+    logger.verbose(`There are no new entries since ${new Date(lastCheck)} in ${feed}`)
+    return ABORT
   }
 
-  logger.debug(`Found an update in ${feed} since ${new Date(lastCheck)}`)
+  logger.verbose(`Found an update in ${feed} since ${new Date(lastCheck)}`)
 
   const output = template({
     channel,
@@ -76,5 +80,13 @@ module.exports = async function check ({
     emoji
   })
 
-  send(webhook, output).catch(logger.error)
+  if (dryRun) {
+    return Promise.resolve(JSON.stringify(output, null, 1))
+  }
+
+  return send(webhook, output).then(
+    () => SUCCESS
+  ).catch(
+    logger.error
+  )
 }

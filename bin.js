@@ -21,7 +21,8 @@ const {
   logFormat = LOG_FROMAT,
   logLevel = LOG_LEVEL,
   webhook = WEBHOOK,
-  emoji = EMOJI
+  emoji = EMOJI,
+  dryRun
 } = parse(argv)
 
 const logger = levelheaded({ minimal: logLevel })
@@ -29,14 +30,21 @@ const trim = i => i.trim()
 
 const list = (feed || feeds)?.split(',').map(trim)
 
-list?.forEach(
-  (feed) => notifier({
-    webhook,
-    channel,
-    feed,
-    interval,
-    logger,
-    logFormat,
-    emoji
-  })
+Promise.all(
+  list?.map(
+    (feed) => notifier({
+      webhook,
+      channel,
+      feed,
+      interval,
+      logger,
+      logFormat,
+      emoji,
+      dryRun
+    })
+  )
+).then(
+  results => results.map(
+    result => logger.debug(result)
+  )
 )
