@@ -1,5 +1,5 @@
 const getFeed = require('./lib/getFeed')
-const logFormat = require('./lib/logFormat')
+const formatter = require('./lib/formatter')
 const minutesToMs = require('./lib/minutesToMs')
 const send = require('./lib/send')
 const template = require('./lib/template')
@@ -20,19 +20,11 @@ module.exports = async function check ({
   feed,
   interval = 15,
   logger = console,
-  format,
+  logFormat,
   emoji = ':rolled_up_newspaper:',
   dryRun
 } = {}) {
-  if (/^json$/i.test(format)) {
-    const originalLogger = logger
-    logger = new Proxy(
-      {},
-      {
-        get: (logger, level) => message => originalLogger[level](logFormat(message))
-      }
-    )
-  }
+  logger = formatter(logger, logFormat)
 
   if (!webhook || !feed) {
     logger.error(`Missing webhook or feed ${{ webhook, feed }}`)
@@ -41,11 +33,11 @@ module.exports = async function check ({
 
   const lastCheck = new Date(Date.now() - minutesToMs(interval))
   const now = new Date()
-  const { feedUrl, title, lastBuildDate, pubDate, items } = await getFeed(feed)
+  const { title, lastBuildDate, pubDate, items } = await getFeed(feed)
   const lastUpdate = new Date(lastBuildDate || pubDate)
 
   if (lastUpdate < lastCheck) {
-    logger.verbose(`Nothing changed since ${new Date(lastCheck)} in ${feed}`)
+    logger.verbose(`Feed did not update since ${new Date(lastCheck)} in ${feed}`)
     return ABORT
   }
 
@@ -53,6 +45,7 @@ module.exports = async function check ({
     ({ isoDate, pubDate }) => {
       const date = new Date(isoDate || pubDate)
       if (date < lastCheck) {
+        // Too old
         return false
       }
       if (date > now) {
@@ -72,10 +65,7 @@ module.exports = async function check ({
 
   const output = template({
     channel,
-    feed: {
-      title,
-      url: feedUrl
-    },
+    username: title,
     entries,
     emoji
   })
