@@ -1,6 +1,7 @@
 const parse = require('yargs-parser')
 const levelheaded = require('levelheaded')
 const notifier = require('.')
+const formatter = require('./lib/formatter')
 
 const [, , ...argv] = process.argv
 const {
@@ -26,7 +27,26 @@ const {
 } = parse(argv)
 
 const logger = levelheaded({ minimal: logLevel })
+const _logger = formatter(logger, logFormat)
 const trim = i => i.trim()
+
+process.on(
+  'unhandledRejection',
+  (error) => _logger.error(
+    error instanceof Error
+      ? [error.message, error.stack].join('\n')
+      : `${error}`
+  )
+)
+
+process.on(
+  'uncaughtException',
+  (error, origin) => _logger.error(
+    error instanceof Error
+      ? [error.message, error.stack, origin].join('\n')
+      : `${error} ${origin}`
+  )
+)
 
 const list = (feed || feeds)?.split(',').map(trim)
 
@@ -45,6 +65,6 @@ Promise.all(
   )
 ).then(
   results => results.map(
-    result => logger.debug(result)
+    result => _logger.debug(result)
   )
 )
