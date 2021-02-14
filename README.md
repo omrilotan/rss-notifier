@@ -39,7 +39,7 @@ and so on
 | `interval` | `INTERVAL` | Minutes | Fifteen minutes
 | `channel` | `CHANNEL` | Webhook channel | Default webhook channel
 | `log-level` | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
-| `log-format` | `LOG_FROMAT` | plain, json | plain
+| `log-format` | `LOG_FORMAT` | plain, json | plain
 | `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
 | `dry-run` | N/A | Boolean | no
 

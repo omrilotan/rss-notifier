@@ -8,7 +8,7 @@ const {
   CHANNEL,
   FEEDS,
   INTERVAL,
-  LOG_FROMAT = 'plain',
+  LOG_FORMAT = 'plain',
   LOG_LEVEL = 'warn',
   WEBHOOK,
   EMOJI
@@ -19,7 +19,7 @@ const {
   feed = FEEDS,
   feeds = FEEDS,
   interval = INTERVAL,
-  logFormat = LOG_FROMAT,
+  logFormat = LOG_FORMAT,
   logLevel = LOG_LEVEL,
   webhook = WEBHOOK,
   emoji = EMOJI,
