@@ -68,8 +68,8 @@ Promise.all(
     result => _logger.debug(result)
   )
 ).catch(error => _logger.error(
-    error instanceof Error
-      ? [error.message, error.stack].join('\n')
-      : `${error}`
-  )
+  error instanceof Error
+    ? [error.message, error.stack].join('\n')
+    : `${error}`
+)
 )
