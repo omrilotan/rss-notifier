@@ -83,7 +83,7 @@ module.exports = async function check ({
   } catch (error) {
     logger.error(
       error instanceof Error
-        ? [error.message, error.stack, `feed: ${feed}`].join('\n')
+        ? [error.message, `Feed: ${feed}`, error.stack].join('\n')
         : `${error} feed: ${feed}`
     )
   }

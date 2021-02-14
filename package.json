@@ -1,6 +1,6 @@
 {
   "name": "rss-notifier",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "💬 Send RSS update notifications to Slack",
   "keywords": [
     "rss",
