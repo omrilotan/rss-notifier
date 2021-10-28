@@ -24,7 +24,7 @@
     "lint": "standard"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "errobj": "^2.2.1",
     "levelheaded": "^1.2.0",
     "rss-parser": "^3.10.0",
