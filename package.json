@@ -21,7 +21,6 @@
   "bin": "bin.js",
   "scripts": {
     "start": "node bin",
-    "test": "npm start -- --dry-run",
     "lint": "standard"
   },
   "dependencies": {
