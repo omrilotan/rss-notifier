@@ -3,6 +3,7 @@ const formatter = require('./lib/formatter')
 const minutesToMs = require('./lib/minutesToMs')
 const send = require('./lib/send')
 const template = require('./lib/template')
+const includes = require('./lib/includes')
 
 const [ABORT, SUCCESS] = ['abort', 'success']
 
@@ -34,35 +35,64 @@ module.exports = async function check ({
 
     const lastCheck = new Date(Date.now() - minutesToMs(interval))
     const now = new Date()
-    const { title, lastBuildDate, pubDate, items } = await getFeed(feed)
+    const { feedURL, include, exclude } = (
+      (feed) => {
+        if (typeof feed === 'object') {
+          const [feedURL, { include, exclude }] = Object.entries(feed).pop()
+
+          const [includeList, excludeList] = [include, exclude].map(
+            list => list && Array.isArray(list)
+              ? list
+              : [list]
+          )
+
+          return { feedURL, include: includeList.filter(Boolean), exclude: excludeList.filter(Boolean) }
+        }
+
+        return { feedURL: feed, include: [], exclude: [] }
+      }
+    )(feed)
+
+    const { title, lastBuildDate, pubDate, items } = await getFeed(feedURL)
     const lastUpdate = new Date(lastBuildDate || pubDate)
 
     if (lastUpdate < lastCheck) {
-      logger.verbose(`Feed did not update since ${new Date(lastCheck)} in ${feed}`)
+      logger.verbose(`Feed did not update since ${new Date(lastCheck)} in ${feedURL}`)
       return ABORT
     }
 
-    const entries = items.filter(
-      ({ isoDate, pubDate }) => {
-        const date = new Date(isoDate || pubDate)
-        if (date < lastCheck) {
-          // Too old
-          return false
-        }
-        if (date > now) {
-          // Future event
-          return false
-        }
-        return true
+    const entries = items.filter(({ isoDate, pubDate }) => {
+      const date = new Date(isoDate || pubDate)
+      if (date < lastCheck) {
+        // Too old
+        return false
       }
-    )
+      if (date > now) {
+        // Future event
+        return false
+      }
+      return true
+    }
+    ).filter(({ title = '', contentSnippet = '' }) => {
+      const conditions = []
+
+      if (include.length && !include.some(i => includes(title, i) || includes(contentSnippet, i))) {
+        conditions.push(false)
+      }
+
+      if (exclude.length && exclude.some(i => includes(title, i) || includes(contentSnippet, i))) {
+        conditions.push(false)
+      }
+
+      return !conditions.includes(false)
+    })
 
     if (!entries.length) {
-      logger.verbose(`There are no new entries since ${new Date(lastCheck)} in ${feed}`)
+      logger.verbose(`There are no new entries since ${new Date(lastCheck)} in ${feedURL}`)
       return ABORT
     }
 
-    logger.verbose(`Found an update in ${feed} since ${new Date(lastCheck)}`)
+    logger.verbose(`Found an update in ${feedURL} since ${new Date(lastCheck)}`)
 
     const output = template({
       channel,

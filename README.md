@@ -42,6 +42,7 @@ and so on
 | `log-format` | `LOG_FORMAT` | plain, json | plain
 | `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
 | `dry-run` | N/A | Boolean | no
+| `config` | `CONFIG` | Config file | None
 
 Options preference order is: CLI argument (1st), Environment variable (2nd), default (where applicable)
 
@@ -62,3 +63,29 @@ The feed(s) is a list of one or more URLs.
 _Example:_
 
 If you want to "subscribe" to GitHub and Docker statuses set your feeds to both `--feeds https://www.githubstatus.com/history.rss,https://status.docker.com/pages/533c6539221ae15e3f000031/rss`
+
+#### Yaml configuration
+```yml
+interval: 10
+webhook: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+channel: "#notifications-channel"
+feeds:
+  - https://www.cloudflarestatus.com/history.atom
+
+```
+
+#### Feed filter
+You can add a filter to the feed. Only items including this substring in their title or content will be sent. Filters are case insensitive.
+```yml
+feeds:
+  - https://www.cloudflarestatus.com/history.atom:
+      include:
+        - DNS
+```
+
+```yml
+feeds:
+  - https://www.cloudflarestatus.com/history.atom:
+      exclude:
+        - WARP
+```
