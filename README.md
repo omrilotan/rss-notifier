@@ -71,7 +71,7 @@ webhook: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXX
 channel: "#notifications-channel"
 feeds:
   - https://www.cloudflarestatus.com/history.atom
-
+  - https://www.githubstatus.com/history.rss
 ```
 
 #### Feed filter
