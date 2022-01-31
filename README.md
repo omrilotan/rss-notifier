@@ -32,21 +32,21 @@ and so on
 
 ### CLI options
 
-| Name | Env Var | Type | Default
-| - | - | - | -
-| `webhook` | `WEBHOOK` | Webhook address | ✘
-| `feeds` | `FEEDS` | Comma separated URLs | ✘
-| `interval` | `INTERVAL` | Minutes | Fifteen minutes
-| `channel` | `CHANNEL` | Webhook channel | Default webhook channel
-| `log-level` | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
-| `log-format` | `LOG_FORMAT` | plain, json | plain
-| `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
-| `dry-run` | N/A | Boolean | no
-| `config` | `CONFIG` | Config file | None
+| Name | Config File | Env Var | Type | Default
+| - | - | - | - | -
+| `webhook` | `webhook` | `WEBHOOK` | Webhook address | ✘
+| `feeds` | `feeds` | `FEEDS` | Comma separated URLs | ✘
+| `interval` | `interval` | `INTERVAL` | Minutes | Fifteen minutes
+| `channel` | `channel` | `CHANNEL` | Webhook channel | Default webhook channel
+| `emoji` | `emoji` | `EMOJI` | Slack emoji | :rolled_up_newspaper: ( 🗞 )
+| `dry-run` | `dryRun` | N/A | Boolean | no
+| `log-level` | N/A | `LOG_LEVEL` | debug, verbose, info, warn, error, critical | warn
+| `log-format` | N/A | `LOG_FORMAT` | plain, json | plain
+| `config` | N/A | `CONFIG` | Config file | None
 
 Options preference order is: CLI argument (1st), Config File (2nd), Environment variable (3rd), default (where applicable)
 
-> `log-level` and `log-format` can not be configured in config file
+> Some options can not be configured in config file
 
 ## How To Use
 
