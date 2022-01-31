@@ -44,7 +44,9 @@ and so on
 | `dry-run` | N/A | Boolean | no
 | `config` | `CONFIG` | Config file | None
 
-Options preference order is: CLI argument (1st), Environment variable (2nd), default (where applicable)
+Options preference order is: CLI argument (1st), Config File (2nd), Environment variable (3rd), default (where applicable)
+
+> `log-level` and `log-format` can not be configured in config file
 
 ## How To Use
 

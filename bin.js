@@ -19,6 +19,10 @@ async function start (argv) {
   const options = {}
   const config = args.config || process.env.CONFIG
 
+  options.logLevel = args.logLevel || process.env.LOG_LEVEL || 'warn'
+  const logger = levelheaded({ minimal: options.logLevel })
+  const _logger = formatter(logger, options.logFormat)
+
   const configData = config
     ? await readYaml(config)
     : {}
@@ -41,9 +45,6 @@ async function start (argv) {
     }
     return []
   })()
-
-  const logger = levelheaded({ minimal: options.logLevel })
-  const _logger = formatter(logger, options.logFormat)
 
   process.on(
     'unhandledRejection',
