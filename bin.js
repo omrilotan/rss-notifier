@@ -15,6 +15,18 @@ async function readYaml (file) {
   const content = await readFile(file, 'utf8')
   return load(content)
 }
+const count = items => Object.entries(
+  items.reduce(
+    (accumulator, item) => {
+      accumulator[item] = accumulator[item] || 0
+      accumulator[item]++
+      return accumulator
+    },
+    {}
+  )
+).map(
+  entry => entry.join(': ')
+).join(', ')
 
 start(argv)
 
@@ -83,7 +95,7 @@ async function start (argv) {
       (feed) => notifier({ ...options, logger, feed })
     )
   ).then(
-    results => _logger.debug(`${options.list.length} feeds produced ${results.length} results: ${results.join(', ')}`)
+    results => _logger.info(`${options.list.length} feeds produced ${results.length} results: ${count(results)}`)
   ).catch(
     error => _logger.error(
       error instanceof Error
