@@ -83,7 +83,7 @@ async function start (argv) {
       (feed) => notifier({ ...options, logger, feed })
     )
   ).then(
-    results => _logger.debug(`${options.list} feeds produced ${results.length} results: ${results.join(', ')}`
+    results => _logger.debug(`${options.list} feeds produced ${results.length} results: ${results.join(', ')}`)
   ).catch(
     error => _logger.error(
       error instanceof Error
