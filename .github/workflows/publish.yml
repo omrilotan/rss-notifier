@@ -22,3 +22,14 @@ jobs:
     - name: Publish
       if: github.ref == 'refs/heads/main'
       run: npx @lets/publish
+    - name: Set Docker credentials
+      if: github.ref == 'refs/heads/main'
+      run: echo $DOCKER_PASSWORD | docker login --username omrilotan --password-stdin
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build
+      if: github.ref == 'refs/heads/main'
+      run: docker build --tag omrilotan/rss-notifier:latest .
+    - name: Build
+      if: github.ref == 'refs/heads/main'
+      run: docker push omrilotan/rss-notifier:latest
