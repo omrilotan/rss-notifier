@@ -24,7 +24,7 @@
     "lint": "standard"
   },
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "errobj": "^2.2.1",
     "js-yaml": "^4.1.0",
     "levelheaded": "^1.2.0",
