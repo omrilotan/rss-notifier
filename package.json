@@ -24,14 +24,14 @@
     "lint": "standard"
   },
   "dependencies": {
-    "axios": "^0.26.0",
-    "errobj": "^2.2.1",
+    "axios": "^0.27.2",
+    "errobj": "^2.4.3",
     "js-yaml": "^4.1.0",
     "levelheaded": "^1.2.0",
     "rss-parser": "^3.10.0",
-    "yargs-parser": "^21.0.0"
+    "yargs-parser": "^21.0.1"
   },
   "devDependencies": {
-    "standard": "^16.0.3"
+    "standard": "^17.0.0"
   }
 }
